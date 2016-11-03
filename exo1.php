@@ -1,46 +1,62 @@
 <?php
 
-class maclasscrado
+class CleanClass
 {
-    private $my_model;
+    private $myModel;
 
-    public function __construct($nom, $prenom, $classe)
+    public function __construct($lastName, $firstName, $class)
     {
-        $this->my_model = new model_crado();
-        $this->my_model->nom = $nom;
-        $this->my_model->prenom;
-        $this->my_model->setClasse($classe);
+        $this->myModel = new CleanModel();
+        $this->myModel->setLastName($lastName);
+        $this->myModel->setFirstName($firstName);
+        $this->myModel->setClass($class);
     }
 
-    public function modelFormatter_DisplayAction()
+    public function displayModel()
     {
-        if (is_null($this->my_model->nom)) {
+        if (is_null($this->myModel->getLastName()) || is_null($this->myModel->getFirstName())) {
             return false;
         }
-        else if (is_null($this->my_model->prenom)) {
-            return false;
-        }
-        else
-        {
-            return $this->my_model->getFullName() . ' est dans la classe '. $this->my_model->getClasse();
-        }
+
+        return $this->myModel->getFullName() . ' est dans la classe '. $this->myModel->getClass();
     }
 }
 
-class model_crado
+class CleanModel
 {
-    public $nom;
-    public $prenom;
-    private $classe;
+    private $firstName;
+    private $lastName;
+    private $class;
 
-    public function getClasse() { return $this->classe; }
-    public function setClasse($classe) { $this->classe = $classe; }
+    public function getFirstName() {
+      return $this->firstName;
+    }
+
+    public function setFirstName($firstName) {
+      $this->firstName = $firstName;
+    }
+
+    public function getLastName() {
+      return $this->lastName;
+    }
+
+    public function setLastName($lastName) {
+      $this->lastName = $lastName;
+    }
+
+    public function getClass() {
+      return $this->class;
+    }
+
+    public function setClass($class) {
+      $this->class = $class;
+    }
 
     public function getFullName() {
-        return $this->nom . ' ' . $this->prenom;
+        return $this->lastName . ' ' . $this->firstName;
     }
 }
 
-$maclasse = new maclasscrado('nom', 'prenom', 'classe');
+$myClass = new CleanClass('nom', 'prenom', 'classe');
 
-echo $maclasse->modelFormatter_DisplayAction();
+echo $myClass->displayModel();
